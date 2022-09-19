@@ -325,11 +325,18 @@ private int getNumBombs(int x,int y){
     }
 
     public void generateBombs(){
+        Set<Pair<Integer,Integer>> mySet = new HashSet<>();
         for(int i =0;i<numBombs;i++){
             double randomx = Math.random() * R_COUNT;
             double randomy = Math.random()* C_COUNT;
             int x = (int) Math.floor(randomx);
             int y = (int) Math.floor(randomy);
+            while(mySet.contains(new Pair(y,x))){
+                randomx = Math.random() * R_COUNT;
+                randomy = Math.random()* C_COUNT;
+                x = (int) Math.floor(randomx);
+                y = (int) Math.floor(randomy);
+            }
             bombs[y][x] = 1;
             System.out.println("RANDOM " +x + " " + y);
         }
