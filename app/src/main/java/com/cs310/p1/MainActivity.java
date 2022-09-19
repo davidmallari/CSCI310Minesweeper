@@ -22,7 +22,7 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
     boolean running = false;
     boolean flagging = false;
-    private String time = "";
+    private String time = "00";
     private int numRevealed = 0;
     private static  final int numBombs = 4;
     private int numflags = numBombs;
@@ -88,6 +88,8 @@ public void OnClick(View v){
                 revealBombs();
                 running = false;
                 Intent intent = new Intent(this,EndgameActivity.class);
+                intent.putExtra("seconds",time);
+                intent.putExtra("won","lost");
                 startActivity(intent);
 //                do some things to end game
             }
@@ -302,7 +304,7 @@ private int getNumBombs(int x,int y){
             @Override
             public void run() {
                 int seconds = clock%60;
-                time = String.format("%02d", seconds);
+                time = String.format("%02d", seconds/2);
                 timeView.setText(time);
 
                 if (running) {
