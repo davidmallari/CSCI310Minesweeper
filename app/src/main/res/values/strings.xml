@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CS310    David Mallari</string>
+    <string name="flag">🚩</string>
+    <string name="bomb">💣</string>
+    <string name="pick">⛏</string>
+    <string name="numFlags">4</string>
+    <string name="time">00</string>
+    <string name="clock">⏰</string>
+    <string name="endmessage">You Won! You used 69 seconds!</string>
+    <string name="play">Play Again</string>
+</resources>

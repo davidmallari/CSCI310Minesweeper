@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.gridlayout.widget.GridLayout
+    android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:rowCount="10"
+        app:columnCount="8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+
+    </androidx.gridlayout.widget.GridLayout>
+    <TextView
+        android:id="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/flag"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout" />
+    <TextView
+        android:id="@+id/numFlags"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/numFlags"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flag"
+        app:layout_constraintEnd_toStartOf="@+id/clock"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout" />
+    <TextView
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/clock"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/numFlags"
+        app:layout_constraintEnd_toStartOf="@+id/timeView"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout" />
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/time"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout" />
+
+    <TextView
+        android:id="@+id/currIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:gravity="center"
+        android:text="@string/pick"
+        android:textAlignment="center"
+        android:textSize="50dp"
+        android:onClick="toggleClick"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
