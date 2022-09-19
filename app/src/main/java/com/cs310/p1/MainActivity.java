@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     boolean flagging = false;
     private String time = "00";
     private int numRevealed = 0;
-    private static  final int numBombs = 4;
+    private static  final int numBombs = 7;
     private int numflags = numBombs;
     private static final int R_COUNT = 8;
     private static final int C_COUNT = 10;
@@ -101,6 +102,10 @@ public void OnClick(View v){
                     numRevealed++;
                     System.out.println(numRevealed);
                     if(numRevealed == (C_COUNT*R_COUNT)-numBombs){
+                        Intent intent = new Intent(this,EndgameActivity.class);
+                        intent.putExtra("seconds",time);
+                        intent.putExtra("won","won");
+                        startActivity(intent);
                         System.out.println("WON!");
                     }
                 }
@@ -222,6 +227,10 @@ public void DFS(TextView v){
     }
     System.out.println(numRevealed);
     if(numRevealed == R_COUNT*C_COUNT - numBombs){
+        Intent intent = new Intent(this,EndgameActivity.class);
+        intent.putExtra("seconds",time);
+        intent.putExtra("won","won");
+        startActivity(intent);
         System.out.println("WON!");
     }
 }
