@@ -3,6 +3,8 @@ package com.cs310.p1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.gridlayout.widget.GridLayout;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
     boolean running = false;
     boolean flagging = false;
+    private String time = "";
     private int numRevealed = 0;
     private static  final int numBombs = 4;
     private int numflags = numBombs;
@@ -84,6 +87,8 @@ public void OnClick(View v){
 //                tv.setBackgroundColor(Color.RED);
                 revealBombs();
                 running = false;
+                Intent intent = new Intent(this,EndgameActivity.class);
+                startActivity(intent);
 //                do some things to end game
             }
             else if(adj > 0){
@@ -297,7 +302,7 @@ private int getNumBombs(int x,int y){
             @Override
             public void run() {
                 int seconds = clock%60;
-                String time = String.format("%02d", seconds/2);
+                time = String.format("%02d", seconds);
                 timeView.setText(time);
 
                 if (running) {
