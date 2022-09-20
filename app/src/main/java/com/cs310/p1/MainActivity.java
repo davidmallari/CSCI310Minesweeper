@@ -23,9 +23,11 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
     boolean running = false;
     boolean flagging = false;
+    boolean playing = true;
+    boolean won = false;
     private String time = "00";
     private int numRevealed = 0;
-    private static  final int numBombs = 7;
+    private static  final int numBombs = 4;
     private int numflags = numBombs;
     private static final int R_COUNT = 8;
     private static final int C_COUNT = 10;
@@ -45,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
             for(int j = 0;j<C_COUNT;j++){
                 TextView view = (TextView) li.inflate(R.layout.cells,grid,false);
                 view.setBackgroundColor(Color.GREEN);
-                if(bombs[j][i]!=0){
-                    view.setText(this.getString(R.string.bomb));
-                }
+//                if(bombs[j][i]!=0){
+//                    view.setText(this.getString(R.string.bomb));
+//                }
 
                 view.setTextColor(Color.TRANSPARENT);
                 view.setOnClickListener(this::OnClick);
@@ -64,6 +66,18 @@ public class MainActivity extends AppCompatActivity {
         runTimer();
     }
 public void OnClick(View v){
+        if(!playing){
+            Intent intent = new Intent(this,EndgameActivity.class);
+            intent.putExtra("seconds",time);
+            if(won){
+                intent.putExtra("won","won");
+            }
+            else{
+                intent.putExtra("won","lost");
+            }
+            startActivity(intent);
+            System.out.println("WON!");
+        }
         if(!running){
             running = true;
             runTimer();
@@ -76,7 +90,7 @@ public void OnClick(View v){
         if(flagging){
             tv.setText(this.getString(R.string.flag));
             tv.setBackgroundColor(Color.LTGRAY);
-            tv.setTextColor(Color.RED);
+            tv.setTextColor(Color.BLACK);
             numflags--;
             TextView flags = (TextView) findViewById(R.id.numFlags);
             flags.setText(String.valueOf(numflags));
@@ -88,11 +102,8 @@ public void OnClick(View v){
 //                tv.setBackgroundColor(Color.RED);
                 revealBombs();
                 running = false;
-                Intent intent = new Intent(this,EndgameActivity.class);
-                intent.putExtra("seconds",time);
-                intent.putExtra("won","lost");
-                startActivity(intent);
-//                do some things to end game
+                playing = false;
+//              do some things to end game
             }
             else if(adj > 0){
                 if(tv.getCurrentTextColor()!=Color.RED){
@@ -102,11 +113,10 @@ public void OnClick(View v){
                     numRevealed++;
                     System.out.println(numRevealed);
                     if(numRevealed == (C_COUNT*R_COUNT)-numBombs){
-                        Intent intent = new Intent(this,EndgameActivity.class);
-                        intent.putExtra("seconds",time);
-                        intent.putExtra("won","won");
-                        startActivity(intent);
-                        System.out.println("WON!");
+                        playing = false;
+                        running = false;
+                        won = true;
+                        revealBombs();
                     }
                 }
 
@@ -227,11 +237,10 @@ public void DFS(TextView v){
     }
     System.out.println(numRevealed);
     if(numRevealed == R_COUNT*C_COUNT - numBombs){
-        Intent intent = new Intent(this,EndgameActivity.class);
-        intent.putExtra("seconds",time);
-        intent.putExtra("won","won");
-        startActivity(intent);
-        System.out.println("WON!");
+        running = false;
+        playing = false;
+        won = true;
+        revealBombs();
     }
 }
 
@@ -337,6 +346,7 @@ private int getNumBombs(int x,int y){
                 x = (int) Math.floor(randomx);
                 y = (int) Math.floor(randomy);
             }
+            mySet.add(new Pair(y,x));
             bombs[y][x] = 1;
             System.out.println("RANDOM " +x + " " + y);
         }
@@ -358,6 +368,7 @@ private int getNumBombs(int x,int y){
                 if(bombs[j][i] != 0){
                     cell_tvs[j][i].setBackgroundColor(Color.RED);
                     cell_tvs[j][i].setTextColor(Color.RED);
+                    cell_tvs[j][i].setText(this.getString(R.string.bomb));
 
                 }
             }
